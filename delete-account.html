@@ -214,6 +214,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="firebase-config.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -235,41 +236,8 @@
                 deleteButton.disabled = !this.checked;
             });
 
-            // Firebase configuration - you need to add your Firebase config here
-            const firebaseConfig = {
-                apiKey: "AIzaSyAgdQEEC6ubWY2CDrviLNpdln83pvbRCGY",
-                authDomain: "psyched-edge-432218-u8.firebaseapp.com",
-                projectId: "psyched-edge-432218-u8",
-                storageBucket: "psyched-edge-432218-u8.appspot.com",
-                messagingSenderId: "362861495180",
-                appId: "1:362861495180:web:0f405a9cd405d7be7d0ca9",
-                measurementId: "G-6F2PWHWSFH"
-            };
-
-            // Initialize Firebase (only if it's not already initialized)
-            let firebaseApp;
-            try {
-                if (typeof firebase !== 'undefined') {
-                    firebaseApp = firebase.initializeApp(firebaseConfig);
-                } else {
-                    console.warn("Firebase SDK not loaded");
-                    showError("Firebase SDK could not be loaded. Please use the password method instead.");
-                    document.getElementById('firebaseMethodBtn').style.display = 'none';
-                }
-            } catch (e) {
-                console.warn("Firebase initialization error:", e);
-                // Check if the error is related to file:// protocol
-                if (location.protocol === 'file:') {
-                    showError("Firebase authentication requires an HTTP server. You're currently using file:// protocol. Please use the password method or run using a web server.");
-                    document.getElementById('firebaseMethodBtn').style.display = 'none';
-                }
-                // If it's already initialized, get the existing app
-                try {
-                    firebaseApp = firebase.app();
-                } catch (appError) {
-                    console.error("Firebase app error:", appError);
-                }
-            }
+            // Initialize Firebase using the configuration from firebase-config.js
+            initializeFirebase();
 
             // Toggle between password and Firebase authentication methods
             const passwordMethodBtn = document.getElementById('passwordMethodBtn');

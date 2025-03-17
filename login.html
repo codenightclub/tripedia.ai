@@ -189,6 +189,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="firebase-config.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -209,23 +210,8 @@
                 }
             }
 
-            // Firebase configuration - Replace with your own Firebase config
-            const firebaseConfig = {
-                apiKey: "YOUR_API_KEY",
-                authDomain: "YOUR_AUTH_DOMAIN",
-                projectId: "YOUR_PROJECT_ID",
-                storageBucket: "YOUR_STORAGE_BUCKET",
-                messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-                appId: "YOUR_APP_ID"
-            };
-
-            // Initialize Firebase
-            let firebase;
-            try {
-                firebase = firebase.initializeApp(firebaseConfig);
-            } catch (e) {
-                console.warn("Firebase initialization error or already initialized");
-            }
+            // Initialize Firebase using the configuration from firebase-config.js
+            initializeFirebase();
 
             // Handle form submission
             loginForm.addEventListener('submit', async function (e) {
@@ -290,7 +276,7 @@
             });
 
             // Firebase Google login
-            if (firebaseLoginButton && firebase) {
+            if (firebaseLoginButton) {
                 firebaseLoginButton.addEventListener('click', async function () {
                     try {
                         // Hide messages and show spinner
