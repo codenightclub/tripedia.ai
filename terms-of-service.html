@@ -166,9 +166,25 @@
     <footer class="footer">
         <p>© 2024 Codenight, LLC. All rights reserved.</p>
         <div class="footer-links">
-            <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a>
+            <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a><span
+                id="deleteAccountLink" style="display: none;"> | <a href="delete-account.html">Delete Account</a></span>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteAccountLink = document.getElementById('deleteAccountLink');
+
+            // Check if user is logged in
+            const accessToken = localStorage.getItem('accessToken');
+            if (accessToken) {
+                // Show delete account link when user is logged in
+                if (deleteAccountLink) {
+                    deleteAccountLink.style.display = 'inline';
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
